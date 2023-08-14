@@ -6,7 +6,9 @@ function Employee(
   datepickerEmployee,
   salaryEmployee,
   positionEmployee,
-  timeEmployee
+  timeEmployee,
+  totalEmployee,
+  categoryEmployee
 ) {
   this.id = idEmployee;
   this.name = nameEmployee;
@@ -16,4 +18,6 @@ function Employee(
   this.salary = salaryEmployee;
   this.position = positionEmployee;
   this.time = timeEmployee;
+  this.total = totalEmployee;
+  this.category = categoryEmployee;
 }
