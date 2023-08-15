@@ -76,7 +76,7 @@ function validTime(idErr, value) {
 }
 
 function validNull(idErr, value) {
-  if (value.length == 0) {
+  if (value.trim().length == 0) {
     document.getElementById(idErr).innerText = "Nội dung không được để trống";
     return false;
   } else {

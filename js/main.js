@@ -28,6 +28,7 @@ function addEmployee() {
 
   var isValid =
     validLength(4, 6, "tbTKNV", emp.id) &
+    validNum("tbTKNV", emp.id) &
     validNull("tbTKNV", emp.id) &
     validStr("tbTen", emp.name) &
     validNull("tbTen", emp.name) &
