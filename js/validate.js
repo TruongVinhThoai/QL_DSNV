@@ -42,7 +42,8 @@ function validDatepicker(idErr, value) {
 }
 
 function validSal(idErr, value) {
-  if (value >= 1e6 && value <= 20e6) {
+  var val = value * 1;
+  if (val >= 1e6 && val <= 20e6) {
     document.getElementById(idErr).innerText = "";
     return true;
   } else {
