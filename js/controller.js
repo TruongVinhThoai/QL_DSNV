@@ -9,6 +9,8 @@ function renderEmployee(render) {
     <td>${item.position}</td>
     <td>${item.total}</td>
     <td>${item.category}</td>
+    <td class="btn btn-info" onclick="editEmployee('${item.id}')">Sửa</td>
+    <td class="btn btn-danger" onclick="delEmployee('${item.id}')">Xóa</td>
     </tr>`;
 
     contentHTML += contentTr;
@@ -21,12 +23,8 @@ function totalSalary(sal, pos) {
     return (sal = sal * 3);
   } else if (pos == "Trưởng phòng") {
     return (sal = sal * 2);
-  } else if (pos == "Nhân viên") {
-    return sal;
-  }
-  return (document.getElementById(
-    "tbChucVu"
-  ).innerHTML = `Chuc vu khong hop le`);
+  } else pos == "Nhân viên";
+  return sal;
 }
 
 function cate(time) {
@@ -54,9 +52,6 @@ function getInfoEmployee() {
   var time = document.getElementById("gioLam").value;
   var total = totalSalary(salary, position);
   var category = cate(time);
-
-  // var total = 20;
-  // var category = "gioi";
 
   return new Employee(
     id,
