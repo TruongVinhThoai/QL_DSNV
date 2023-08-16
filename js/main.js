@@ -27,23 +27,21 @@ function addEmployee() {
   //Start Validate
 
   var isValid =
-    validLength(4, 6, "tbTKNV", emp.id) &
-    validNum("tbTKNV", emp.id) &
-    validNull("tbTKNV", emp.id) &
-    validStr("tbTen", emp.name) &
-    validNull("tbTen", emp.name) &
-    validEmail("tbEmail", emp.email) &
-    validNull("tbEmail", emp.email) &
-    validPass("tbMatKhau", emp.pass) &
-    validDatepicker("tbNgay", emp.datepicker) &
-    validNull("tbNgay", emp.datepicker) &
-    validSal("tbLuongCB", emp.salary) &
-    validNull("tbLuongCB", emp.salary) &
-    validPosition("tbChucVu", emp.position) &
-    validTime("tbGiolam", emp.time) &
-    validNull("tbGiolam", emp.time);
+    validateAccount("tbTKNV", emp.id) &
+    validateName("tbTen", emp.name) &
+    validateEmail("tbEmail", emp.email) &
+    validatePassword("tbMatKhau", emp.pass) &
+    validateDatepicker("tbNgay", emp.datepicker) &
+    validateSalary("tbLuongCB", emp.salary) &
+    validatePosition("tbChucVu", emp.position) &
+    validateTime("tbGiolam", emp.time);
 
   if (!isValid) return;
+
+  $("#employeeModal").modal("hide");
+  setTimeout(() => {
+    Swal.fire(`Add ${emp.name} - ${emp.email} successfully!`);
+  }, 500);
 
   arrEmployee.push(emp);
   localStorage.setItem("listEmployee", JSON.stringify(arrEmployee));
@@ -59,10 +57,11 @@ function delEmployee(id) {
 }
 
 function editEmployee(id) {
+  $("#employeeModal").modal("show");
   var index = findEmployee(id, arrEmployee);
   var emp = arrEmployee[index];
   showInfoEmployee(emp);
-  document.getElementById("txtMaSV").disabled = true;
+  document.getElementById("tknv").disabled = true;
 }
 
 function updateEmployee() {
@@ -70,6 +69,19 @@ function updateEmployee() {
   var index = findEmployee(employee.id, arrEmployee);
   arrEmployee[index] = employee;
 
+  $("#employeeModal").modal("hide");
+  setTimeout(() => {
+    Swal.fire(`Update ${employee.name} - ${employee.email} successfully!`);
+  }, 500);
+
   localStorage.setItem("listEmployee", JSON.stringify(arrEmployee));
   renderEmployee(arrEmployee);
+}
+
+function searchEmployee() {
+  var searchInput = document.getElementById("searchName").value;
+  var searchCategory = arrEmployee.filter((val) => {
+    return val.category.toUpperCase().includes(searchInput.toUpperCase());
+  });
+  renderEmployee(searchCategory);
 }

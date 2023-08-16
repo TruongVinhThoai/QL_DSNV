@@ -136,7 +136,7 @@
                     class="btn btn-primary"
                     id="btnThem"
                     data-toggle="modal"
-                    data-target="#myModal"
+                    data-target="#employeeModal"
                   >
                     Thêm nhân viên
                   </button>
@@ -154,6 +154,7 @@
                       class="form-control"
                       placeholder="Loại nhân viên"
                       id="searchName"
+                      oninput="searchEmployee()"
                     />
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="btnTimNV"
@@ -199,7 +200,7 @@
     </div>
 
     <!-- The Modal -->
-    <div class="modal fade" id="myModal">
+    <div class="modal fade" id="employeeModal">
       <div class="modal-dialog">
         <div class="modal-content">
           <header class="head-form mb-0">
@@ -419,6 +420,7 @@
         });
       });
     </script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="./js/validate.js"></script>
     <script src="./js/model.js"></script>
     <script src="./js/controller.js"></script>

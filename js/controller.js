@@ -24,14 +24,14 @@ function totalSalary(sal, pos) {
   } else if (pos == "Trưởng phòng") {
     return (sal = sal * 2);
   } else pos == "Nhân viên";
-  return sal;
+  return sal * 1;
 }
 
 function cate(time) {
-  var s = "xuat sac";
-  var a = "gioi";
-  var b = "kha";
-  var c = "trung binh";
+  var s = "Xuất Sắc";
+  var a = "Giỏi";
+  var b = "Khá";
+  var c = "Trung Bình";
   if (time < 160) {
     return c;
   } else if (time < 176) {
@@ -50,6 +50,7 @@ function getInfoEmployee() {
   var salary = document.getElementById("luongCB").value;
   var position = document.getElementById("chucvu").value;
   var time = document.getElementById("gioLam").value;
+  // var total = formatNumberWithCommas(totalSalary(salary, position)) + " VNĐ";
   var total = totalSalary(salary, position);
   var category = cate(time);
 

@@ -1,111 +1,150 @@
-function validNum(idErr, value) {
-  if (!/\D/.test(value)) {
-    document.getElementById(idErr).innerText = "";
+function validateName(idErr, value) {
+  const messageError = document.getElementById(idErr);
+  const regex = /^[a-zA-ZÀ-ỹ\s]+$/;
+  if (!isNull(idErr, value)) {
+    return false; // Return immediately if value is null
+  }
+
+  if (value.match(regex)) {
+    messageError.innerText = "";
     return true;
   } else {
-    document.getElementById(idErr).innerText = "Tài khoản không hợp lệ";
+    messageError.innerText = "Tên không hợp lệ";
     return false;
   }
 }
 
-function validStr(idErr, value) {
-  var letter = /^[A-Za-z]+$/;
-  if (value.match(letter)) {
-    document.getElementById(idErr).innerText = "";
-    return true;
-  } else {
-    document.getElementById(idErr).innerText = "Tên không hợp lệ";
-    return false;
+function validatePassword(idErr, value) {
+  const messageError = document.getElementById(idErr);
+  const reg =
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,10}$/;
+  if (!isNull(idErr, value)) {
+    return false; // Return immediately if value is null
   }
-}
-
-function validPass(idErr, value) {
-  var reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,10}$/;
   if (value.match(reg)) {
-    document.getElementById(idErr).innerText = "";
+    messageError.innerText = "";
     return true;
   } else {
-    document.getElementById(idErr).innerText = "Mật khẩu không hợp lệ";
+    messageError.innerText =
+      "Mật khẩu gồm 6 - 10 ký tự, ít nhất 1 ký tự in hoa, 1 chữ số, 1 ký tự đặc biệt";
     return false;
   }
 }
 
-function validDatepicker(idErr, value) {
-  var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
+function validateDatepicker(idErr, value) {
+  const messageError = document.getElementById(idErr);
+  const date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
+  if (!isNull(idErr, value)) {
+    return false; // Return immediately if value is null
+  }
   if (value.match(date_regex)) {
-    document.getElementById(idErr).innerText = "";
+    messageError.innerText = "";
     return true;
   } else {
-    document.getElementById(idErr).innerText = "Ngày làm việc không hợp lệ";
+    messageError.innerText = "Ngày làm việc không hợp lệ";
     return false;
   }
 }
 
-function validSal(idErr, value) {
-  var val = value * 1;
-  if (val >= 1e6 && val <= 20e6) {
-    document.getElementById(idErr).innerText = "";
+function validateSalary(idErr, value) {
+  const messageError = document.getElementById(idErr);
+  const numericValue = Number(value.replace(/,/g, "")) * 1;
+  if (!isNull(idErr, value)) {
+    return false; // Return immediately if value is null
+  }
+  if (numericValue >= 1e6 && numericValue <= 20e6) {
+    messageError.innerText = "";
     return true;
   } else {
-    document.getElementById(idErr).innerText = "Lương không hợp lệ";
+    messageError.innerText = "Lương không hợp lệ";
     return false;
   }
 }
 
-function validPosition(idErr, value) {
-  if (value == "Sếp" || value == "Trưởng phòng" || value == "Nhân viên") {
-    document.getElementById(idErr).innerText = "";
+function validatePosition(idErr, value) {
+  const messageError = document.getElementById(idErr);
+  if (!isNull(idErr, value)) {
+    return false; // Return immediately if value is null
+  }
+
+  if (value !== "Chọn chức vụ") {
+    messageError.innerText = "";
     return true;
   } else {
-    document.getElementById(idErr).innerText = "Chức vụ không hợp lệ";
+    messageError.innerText = "Chức vụ không hợp lệ";
     return false;
   }
 }
 
-function validTime(idErr, value) {
-  if (value < 80) {
-    document.getElementById(idErr).innerText =
-      "Làm gì ít z cha, chắc đuổi quá!!";
+function validateTime(idErr, value) {
+  const messageError = document.getElementById(idErr);
+  if (!isNull(idErr, value)) {
+    return false; // Return immediately if value is null
+  }
+
+  if (Number(value) < 80) {
+    messageError.innerText = "Làm gì ít z cha, chắc đuổi quá!!";
     return false;
-  } else if (value > 200) {
-    document.getElementById(idErr).innerText =
+  } else if (Number(value) > 200) {
+    messageError.innerText =
       "Làm nhiều z tiền đâu trả lương cha nụi, chắc cũng đuổi luôn quá =)))";
     return false;
-  } else document.getElementById(idErr).innerText = "";
+  } else messageError.innerText = "";
   return true;
 }
 
-function validNull(idErr, value) {
+function isNull(idErr, value) {
+  const messageError = document.getElementById(idErr);
   if (value.trim().length == 0) {
-    document.getElementById(idErr).innerText = "Nội dung không được để trống";
+    messageError.innerText = "Nội dung không được để trống";
     return false;
   } else {
-    document.getElementById(idErr).innerText = "";
+    messageError.innerText = "";
     return true;
   }
 }
 
-function validLength(min, max, idErr, value) {
-  var length = value.length;
-  if (length < min || length > max) {
-    document.getElementById(
-      idErr
-    ).innerText = `Nội dung phải từ ${min} đến ${max} ký tự`;
+// function formatNumberWithCommas(input) {
+//   const inputValue = input.value.replace(/,/g, "");
+//   const formattedValue = Number(inputValue).toLocaleString("en-US");
+//   input.value = formattedValue;
+// }
+
+function validateAccount(idErr, value) {
+  const messageError = document.getElementById(idErr);
+
+  if (!isNull(idErr, value)) {
+    return false; // Return immediately if value is null
+  }
+  if (value.length < 4 || value.length > 6) {
+    messageError.innerText = `Nội dung phải từ ${4} đến ${6} ký tự`;
+    return false;
+  } else if (/\D/.test(value)) {
+    messageError.innerText = "Tài khoản không hợp lệ";
     return false;
   } else {
-    document.getElementById(idErr).innerText = "";
+    messageError.innerText = "";
     return true;
   }
 }
 
-function validEmail(idErr, value) {
-  const re =
-    /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-  if (re.test(value)) {
-    document.getElementById(idErr).innerText = "";
+function validateEmail(idErr, value) {
+  const messageError = document.getElementById(idErr);
+  const regex =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const isValidEmail = (value) => {
+    return String(value).toLowerCase().match(regex);
+  };
+
+  if (!isNull(idErr, value)) {
+    return false; // Return immediately if value is null
+  }
+
+  if (isValidEmail(value)) {
+    messageError.innerText = "";
     return true;
   } else {
-    document.getElementById(idErr), (innerText = "Email không hợp lệ");
+    messageError.innerText = "Email không hợp lệ";
     return false;
   }
 }
