@@ -69,6 +69,18 @@ function updateEmployee() {
   var index = findEmployee(employee.id, arrEmployee);
   arrEmployee[index] = employee;
 
+  var isValid =
+    validateAccount("tbTKNV", employee.id) &
+    validateName("tbTen", employee.name) &
+    validateEmail("tbEmail", employee.email) &
+    validatePassword("tbMatKhau", employee.pass) &
+    validateDatepicker("tbNgay", employee.datepicker) &
+    validateSalary("tbLuongCB", employee.salary) &
+    validatePosition("tbChucVu", employee.position) &
+    validateTime("tbGiolam", employee.time);
+
+  if (!isValid) return;
+
   $("#employeeModal").modal("hide");
   setTimeout(() => {
     Swal.fire(`Update ${employee.name} - ${employee.email} successfully!`);
