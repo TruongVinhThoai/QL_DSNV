@@ -72,27 +72,34 @@ function getInfoEmployee() {
   );
 }
 
-function jsonParse(data) {
-  var list = JSON.parse(data);
-  arrEmployee = list.map((emp) => {
-    return new Employee(
-      emp.id,
-      emp.name,
-      emp.email,
-      emp.pass,
-      emp.datepicker,
-      emp.salary,
-      emp.position,
-      emp.time,
-      emp.total,
-      emp.category
-    );
-  });
+function getLocal() {
+  var jsondata = localStorage.getItem("listEmployee");
+
+  if (jsondata != null) {
+    var list = JSON.parse(jsondata);
+    arrEmployee = list.map((emp) => {
+      return new Employee(
+        emp.id,
+        emp.name,
+        emp.email,
+        emp.pass,
+        emp.datepicker,
+        emp.salary,
+        emp.position,
+        emp.time,
+        emp.total,
+        emp.category
+      );
+    });
+    renderEmployee(arrEmployee);
+  }
 }
 
-function showInfoEmployee(employ) {
-  // var index = findEmployee(idShow, arrEmployee);
-  // var emp = arrEmployee[index];
+function showInfoEmployee(emp) {
+  getLocal();
+
+  var index = findEmployee(emp, arrEmployee);
+  var employ = arrEmployee[index];
 
   document.getElementById("tknv").value = employ.id;
   document.getElementById("name").value = employ.name;
