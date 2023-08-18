@@ -72,15 +72,36 @@ function getInfoEmployee() {
   );
 }
 
-function showInfoEmployee(emp) {
-  document.getElementById("tknv").value = emp.id;
-  document.getElementById("name").value = emp.name;
-  document.getElementById("email").value = emp.email;
-  document.getElementById("password").value = emp.pass;
-  document.getElementById("datepicker").value = emp.datepicker;
-  document.getElementById("luongCB").value = emp.salary;
-  document.getElementById("chucvu").value = emp.position;
-  document.getElementById("gioLam").value = emp.time;
+function jsonParse(data) {
+  var list = JSON.parse(data);
+  arrEmployee = list.map((emp) => {
+    return new Employee(
+      emp.id,
+      emp.name,
+      emp.email,
+      emp.pass,
+      emp.datepicker,
+      emp.salary,
+      emp.position,
+      emp.time,
+      emp.total,
+      emp.category
+    );
+  });
+}
+
+function showInfoEmployee(employ) {
+  // var index = findEmployee(idShow, arrEmployee);
+  // var emp = arrEmployee[index];
+
+  document.getElementById("tknv").value = employ.id;
+  document.getElementById("name").value = employ.name;
+  document.getElementById("email").value = employ.email;
+  document.getElementById("password").value = employ.pass;
+  document.getElementById("datepicker").value = employ.datepicker;
+  document.getElementById("luongCB").value = employ.salary;
+  document.getElementById("chucvu").value = employ.position;
+  document.getElementById("gioLam").value = employ.time;
 }
 
 function resetFormEmployee() {

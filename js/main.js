@@ -3,21 +3,7 @@ var arrEmployee = [];
 var jsondata = localStorage.getItem("listEmployee");
 
 if (jsondata != null) {
-  var list = JSON.parse(jsondata);
-  arrEmployee = list.map((emp) => {
-    return new Employee(
-      emp.id,
-      emp.name,
-      emp.email,
-      emp.pass,
-      emp.datepicker,
-      emp.salary,
-      emp.position,
-      emp.time,
-      emp.total,
-      emp.category
-    );
-  });
+  jsonParse(jsondata);
   renderEmployee(arrEmployee);
 }
 
@@ -63,8 +49,10 @@ function delEmployee(id) {
 
 function editEmployee(id) {
   $("#employeeModal").modal("show");
+
   var index = findEmployee(id, arrEmployee);
   var emp = arrEmployee[index];
+
   showInfoEmployee(emp);
   document.getElementById("tknv").disabled = true;
 }
@@ -102,6 +90,7 @@ function btnClose() {
 }
 
 function searchEmployee() {
+  jsonParse(jsondata);
   var searchInput = document.getElementById("searchName").value;
   var searchCategory = arrEmployee.filter((val) => {
     return val.category.toUpperCase().includes(searchInput.toUpperCase());
