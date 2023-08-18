@@ -41,6 +41,10 @@ function cate(time) {
   } else return s;
 }
 
+function formatTotalSalaryWithCommas(number) {
+  return number.toLocaleString();
+}
+
 function getInfoEmployee() {
   var id = document.getElementById("tknv").value;
   var name = document.getElementById("name").value;
@@ -50,8 +54,8 @@ function getInfoEmployee() {
   var salary = document.getElementById("luongCB").value;
   var position = document.getElementById("chucvu").value;
   var time = document.getElementById("gioLam").value;
-  // var total = formatNumberWithCommas(totalSalary(salary, position)) + " VNĐ";
-  var total = totalSalary(salary, position);
+  var total =
+    formatTotalSalaryWithCommas(totalSalary(salary, position)) + " VNĐ";
   var category = cate(time);
 
   return new Employee(
@@ -77,6 +81,27 @@ function showInfoEmployee(emp) {
   document.getElementById("luongCB").value = emp.salary;
   document.getElementById("chucvu").value = emp.position;
   document.getElementById("gioLam").value = emp.time;
+}
+
+function resetFormEmployee() {
+  document.getElementById("tknv").value = "";
+  document.getElementById("name").value = "";
+  document.getElementById("email").value = "";
+  document.getElementById("password").value = "";
+  document.getElementById("datepicker").value = "";
+  document.getElementById("luongCB").value = "";
+  document.getElementById("chucvu").value = "Chọn chức vụ";
+  document.getElementById("gioLam").value = "";
+  document.getElementById("tknv").disabled = false;
+
+  document.getElementById("tbTKNV").innerText = "";
+  document.getElementById("tbTen").innerText = "";
+  document.getElementById("tbEmail").innerText = "";
+  document.getElementById("tbMatKhau").innerText = "";
+  document.getElementById("tbNgay").innerText = "";
+  document.getElementById("tbLuongCB").innerText = "";
+  document.getElementById("tbChucVu").innerText = "";
+  document.getElementById("tbGiolam").innerText = "";
 }
 
 function findEmployee(idEmp, arrEmp) {

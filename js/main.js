@@ -22,6 +22,8 @@ if (jsondata != null) {
 }
 
 function addEmployee() {
+  $("#employeeModal").trigger("reset");
+
   var emp = getInfoEmployee();
 
   //Start Validate
@@ -44,6 +46,8 @@ function addEmployee() {
   }, 500);
 
   arrEmployee.push(emp);
+  resetFormEmployee();
+
   localStorage.setItem("listEmployee", JSON.stringify(arrEmployee));
   renderEmployee(arrEmployee);
 }
@@ -51,6 +55,7 @@ function addEmployee() {
 function delEmployee(id) {
   var index = findEmployee(id, arrEmployee);
   arrEmployee.splice(index, 1);
+  resetFormEmployee();
 
   renderEmployee(arrEmployee);
   localStorage.setItem("listEmployee", JSON.stringify(arrEmployee));
@@ -86,8 +91,14 @@ function updateEmployee() {
     Swal.fire(`Update ${employee.name} - ${employee.email} successfully!`);
   }, 500);
 
+  resetFormEmployee();
+
   localStorage.setItem("listEmployee", JSON.stringify(arrEmployee));
   renderEmployee(arrEmployee);
+}
+
+function btnClose() {
+  resetFormEmployee();
 }
 
 function searchEmployee() {

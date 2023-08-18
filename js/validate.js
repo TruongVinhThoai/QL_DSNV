@@ -82,6 +82,11 @@ function validateTime(idErr, value) {
     return false; // Return immediately if value is null
   }
 
+  if (/\D/.test(value)) {
+    messageError.innerText = "Thời gian làm không hợp lệ";
+    return false;
+  }
+
   if (Number(value) < 80) {
     messageError.innerText = "Làm gì ít z cha, chắc đuổi quá!!";
     return false;
@@ -103,12 +108,6 @@ function isNull(idErr, value) {
     return true;
   }
 }
-
-// function formatNumberWithCommas(input) {
-//   const inputValue = input.value.replace(/,/g, "");
-//   const formattedValue = Number(inputValue).toLocaleString("en-US");
-//   input.value = formattedValue;
-// }
 
 function validateAccount(idErr, value) {
   const messageError = document.getElementById(idErr);
